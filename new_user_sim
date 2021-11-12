@@ -1,0 +1,94 @@
+import random
+
+class User:
+    
+    def userData(self, fist, last, email, tele_num):
+        self.first = fist
+        self.last = last
+        self.email = email
+        self.tele_num = tele_num
+        
+    def user_password(self, pass_w1, pass_w2):
+        self.pass_w1 = pass_w1
+        self.pass_w2 = pass_w2
+        
+    def get_num():
+        num = input('Enter your telephone number: ')
+        while len(num) != 10:
+            print('This entry is invalid. Please enter a ten-digit telephone number. ')
+            num = input('Enter your telephone number: ')
+        for i in num:
+            nums = []
+            nums.extend(num) #used extend function instead of append
+        tel_num = ['(', ')', '-'] 
+        tel_num.insert(1,nums[0])
+        tel_num.insert(2,nums[1])
+        tel_num.insert(3,nums[2])
+        tel_num.insert(5,nums[3])
+        tel_num.insert(6,nums[4])
+        tel_num.insert(7,nums[5])
+        tel_num.insert(9,nums[6])
+        tel_num.insert(10,nums[7])
+        tel_num.insert(11,nums[8])
+        tel_num.insert(12,nums[9])
+
+        display_num = ''
+        for i in tel_num:
+            display_num += '' + str(i)
+        return display_num
+    
+    def displayData(self):
+        print('\n Please confirm that your information is correct before continuing: ')
+        self.welcome = """
+                     Name: {} {}
+                     email: {}  
+                     telephone number: {} """.format(first, last, email, tele_num)
+        print(self.welcome)
+   
+    def pass_word(self):
+        self.pass_w1 = input('Please enter your password: ')
+        self.pass_w2 = input('Pleas re-enter your password: ')
+        self.is_match =f"\n Welcome {first} {last}! Your account has been successfully created!"
+        while self.pass_w1 != self.pass_w2:
+            print('Passwords do not match, please check both entries.')
+            self.pass_w1 = input('Please enter your password: ')
+            self.pass_w2 = input('Pleas re-enter your password: ')
+        print(self.is_match)
+        
+    def confirm_info(self):
+        self.info = input("Y / N ? ").lower()
+        if self.info == 'y':
+            print("\nThank You!")
+        else:
+            first = input('Enter your first name: ')
+            last = input('Enter your last name: ').capitalize()
+            self.email ="{}{}@thiswebsite.com".format(first, last).lower()
+            self.tele_num = User.get_num()
+            self.displayData()
+            self.confirm_info()
+            
+    def sms_sim():
+        code = random.randint(1000, 9999)
+        print(code)
+        sms = int(input('Enter the sms code: '))
+        if sms == code:
+            print('Your user account has been verified!')
+        else:
+            User.sms_sim() 
+
+
+first = input('Enter your first name: ').capitalize()
+last = input('Enter your last name: ').capitalize()
+email ="{}{}@thiswebsite.com".format(first, last).lower()
+tele_num = User.get_num()
+
+
+user_1 = User()
+
+user_1.pass_word()
+
+user_1.displayData()
+
+user_1.confirm_info()
+
+User.sms_sim()
