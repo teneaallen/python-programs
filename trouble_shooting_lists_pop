@@ -1,0 +1,59 @@
+(*) # - symbol placed before adding comments to code.
+
+# Step 1 - The program prompts the user to input their telephone number.
+  # Construct a while loop that initiates when the user's input is less than 10 characters long. 
+  # This stage of the program will continue to prompt the user to enter a 10-digit telephone number until this condition is met.
+  # Once the required character count is met, the program will run the next line of code:
+# Code for Step 1:
+
+  num = input('Enter your telephone number: ')
+  while len(num) != 10:
+    print('This is an invalid entry. Please enter a 10-digit telephone number: ')
+    num = input('Enter your telephone number: ')
+  
+# Results for Step 1 when user input is correct:
+
+  Enter your telephone number: 1234567894 (example of user entering a 10-digit number) -- #program continues to run the next line of code.
+
+# Results for Step 1 when user input is incorrect:
+
+  Enter your telephone number: 4567894 (example of user only entering a 7-digit number) 
+  This is an invalid entry. Please enter a 10-digit telephone number: -- user will continue to recieve this error message in response to entering a number that is not 10-digits
+
+# Step 2 - Construct a for loop that instructs the program to create an empty list ([]) called num, then populate this list with the numbers entered by the user.
+  # The for loop should reiterate once for every number the user entered.
+  # My first attempt was to use the .append() method to populate the empty list (num[]) with the user's input.
+  # Once for the for loop has completed, the program is instructed to create a variable called add_spaces which is assigned a blank string (" ").
+  # Then the program is instructed to print out the newly populated list and to apply a .join() method to add spaces in between the individual elements in the populated list.
+# Code for Step 2:
+
+  for each_num_entered in num:
+    nums = []
+    nums.append(num)
+  add_spaces = " "
+  print(add_spaces.join(nums))
+  
+# Results for Step 2 when using the .append() method to populate the empty list (nums[]):
+
+  Enter your phone number: 1234567894 (example of user entering a 10-digit number) -- #program continues to run the next line of code.
+  -- 1234567894 -- # This is the program output once the print(add_space.join(nums)) statement runs.
+  
+# The results from Step 2 show that the by using the .append() method, the program was only able to interpret the user input as one element 
+# being added to the empty list (nums[]) instead of a group of 10 individual elements.
+# If each number had been added as an individual element, the program would have added spaces in between each number the program output printed.
+# I realized this was the result of using the .append() method to populate the empty list.
+
+# Step 3 - After researching other methods to populate a list with more elements, I found that the .extend() method could be used as well. 
+  #Replaced the .append() method with the .extend() method
+  #Revised line of code: 
+    
+    nums.append(num) --> revised to --> nums.extend(num)
+    
+# Results for Step 3 after replacing the .append() method with the .extend() method to populate the empty list (nums[]):
+
+  Enter your phone number:  1234567894 (example of user entering a 10-digit number) -- program continues to run the next line of code.
+  -- 1 2 3 4 5 6 7 8 9 4 -- # This is the expected program output once the print(add_spaces.join(nums)) statement runs.
+  
+# The results from Step 3 show that the program was only able to correctly populate the empty list (nums[]) with the user's input as a seriers of individual elements 
+# only after replacing the .append() method with the .extend () method which allowed for each element to be added one by one instead of as a single string.
+# These elements were only separated by spaces in order to distinguish how both methods would affect the program's output. 
