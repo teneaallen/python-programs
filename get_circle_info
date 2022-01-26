@@ -1,0 +1,42 @@
+#Question 21 -- Explain how to determine, without graphing, whether a point P = (x,y) 
+#is inside, on, or outside the circle with center C = (h,k) and radius r.
+
+import math
+
+def get_cirle_info(x, y, h, k, r):
+    x,y = float(x),float(y)
+    h,k = int(h),int(k)
+    C = f'({h},{k})'
+    P = f'({x},{y})'
+    r = int(r)
+    r_ver = math.sqrt((((x-h)**2)+((y-k)**2)))
+
+    print('\u0332'.join('Circle_Info:'))
+    print(f'''
+P = {P}
+    
+Center = {C}
+
+Dist(P,C) = {r_ver}
+
+radius = {r}''')
+    print('')
+    print('\u0332'.join('Conclusion:'))
+    print('')
+    
+    if r == r_ver:
+        print(f'''Dist(P,C) = radius. 
+
+Therefore, the point P = {P} lies on the graph 
+of the circle.''')
+    elif r < r_ver:
+        print(f'''Dist(P,C) > {r}. 
+
+Therefore, the point P = {P} must lie outside the graph of the circle.''')
+    else: 
+        print(f'''Dist(P,C) < {r}.
+
+Therefore, the point P = {P} must lie inside the graph of the circle.''')
+
+#passes arguments: (x, y, h, k, r)
+get_cirle_info(7, 11, 7, 10, 1)
