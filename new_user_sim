@@ -12,14 +12,14 @@ class User:
         self.pass_w1 = pass_w1
         self.pass_w2 = pass_w2
         
-    def get_num():
+    def get_num(self):
         num = input('Enter your telephone number: ')
         while len(num) != 10:
             print('This entry is invalid. Please enter a ten-digit telephone number. ')
             num = input('Enter your telephone number: ')
         for i in num:
             nums = []
-            nums.extend(num) #used extend function instead of append
+            nums.extend(num) 
         tel_num = ['(', ')', '-'] 
         tel_num.insert(1,nums[0])
         tel_num.insert(2,nums[1])
@@ -32,11 +32,11 @@ class User:
         tel_num.insert(11,nums[8])
         tel_num.insert(12,nums[9])
 
-        display_num = ''
+        self.display_num = ''
         for i in tel_num:
-            display_num += '' + str(i)
-        return display_num
-    
+            self.display_num += '' + str(i)
+        return self.display_num
+     
     def displayData(self):
         print('\n Please confirm that your information is correct before continuing: ')
         self.welcome = """
@@ -60,30 +60,31 @@ class User:
         if self.info == 'y':
             print("\nThank You!")
         else:
-            first = input('Enter your first name: ')
-            last = input('Enter your last name: ').capitalize()
-            self.email ="{}{}@thiswebsite.com".format(first, last).lower()
-            self.tele_num = User.get_num()
+            first_2 = input('Enter your first name: ').capitalize()
+            last_2 = input('Enter your last name: ').capitalize()
+            email ="{}{}@thiswebsite.com".format(first, last).lower()
+            tele_num_2 = self.get_num()
             self.displayData()
             self.confirm_info()
             
-    def sms_sim():
+    def sms_sim(self):
         code = random.randint(1000, 9999)
-        print(code)
-        sms = int(input('Enter the sms code: '))
+        print('sms verification code: ' + str(code))
+        sms = int(input(f'Enter the sms code sent to xxx-xxx-{self.display_num[9:]}: '))
         if sms == code:
             print('Your user account has been verified!')
         else:
             User.sms_sim() 
 
+#creating objects for userData:
+user_1 = User()
 
 first = input('Enter your first name: ').capitalize()
 last = input('Enter your last name: ').capitalize()
 email ="{}{}@thiswebsite.com".format(first, last).lower()
-tele_num = User.get_num()
+tele_num = user_1.get_num()
 
-
-user_1 = User()
+#creating objects for user_password:
 
 user_1.pass_word()
 
@@ -91,4 +92,5 @@ user_1.displayData()
 
 user_1.confirm_info()
 
-User.sms_sim()
+user_1.sms_sim()
+
