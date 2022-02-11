@@ -1,18 +1,28 @@
-import random
+#revised and (possibly) final version of new_user_acct_sim
 
-class User:
+
+import random #for generating rand int in range 1000 - 9999 to create 4-digit num
+#will use html and php code later to create a user friendly form gui for user input and basic site layout.
+
+class User: #creates a class for user input/ information
     
-    def userData(self, fist, last, email, tele_num):
-        self.first = fist
-        self.last = last
+    def userData(self, first_name, last_name, email, tele_num): #method defining user specific attributes
+        self.first = first_name
+        self.last = last_name
         self.email = email
         self.tele_num = tele_num
         
-    def user_password(self, pass_w1, pass_w2):
+    def add_user_info(self): #class method that prompts user input for first and last name, defines email output format and how telephone number is displayed
+        self.first = input('Enter your first name: ').capitalize()
+        self.last = input('Enter your last name: ').capitalize()
+        self.email ="{}{}@thiswebsite.com".format(self.first, self.last).lower()
+        self.tele_num = user_1.get_num()
+        
+    def user_password(self, pass_w1, pass_w2): #class method that defines universal password variables
         self.pass_w1 = pass_w1
         self.pass_w2 = pass_w2
         
-    def get_num():
+    def get_num(self): #class method telling program how to display the user's number and when to alert user of wrong input
         num = input('Enter your telephone number: ')
         while len(num) != 10:
             print('This entry is invalid. Please enter a ten-digit telephone number. ')
@@ -32,63 +42,70 @@ class User:
         tel_num.insert(11,nums[8])
         tel_num.insert(12,nums[9])
 
-        display_num = ''
+        self.display_num = '' #display_num changed to a universal variable to be used later in print function
         for i in tel_num:
-            display_num += '' + str(i)
-        return display_num
+            self.display_num += '' + str(i)
+        return self.display_num
     
-    def displayData(self):
+    def display_info(self): #class method for how to display user input in a message
         print('\n Please confirm that your information is correct before continuing: ')
         self.welcome = """
-                     Name: {} {}
-                     email: {}  
-                     telephone number: {} """.format(first, last, email, tele_num)
+                     Name: {} {}\n\n
+                     email: {}\n\n  
+                     telephone number: {} """.format(self.first, self.last, self.email, self.tele_num)
         print(self.welcome)
    
-    def pass_word(self):
+    def pass_word(self): #class method showing how program guides user through password setup
         self.pass_w1 = input('Please enter your password: ')
         self.pass_w2 = input('Pleas re-enter your password: ')
-        self.is_match =f"\n Welcome {first} {last}! Your account has been successfully created!"
+        self.is_match =f"\n Welcome {self.first} {self.last}! Your account has been successfully created!"
         while self.pass_w1 != self.pass_w2:
-            print('Passwords do not match, please check both entries.')
+            print('\nPasswords do not match, please check both entries.')
             self.pass_w1 = input('Please enter your password: ')
             self.pass_w2 = input('Pleas re-enter your password: ')
         print(self.is_match)
-        
-    def confirm_info(self):
+    
+    def sms_sim(self):
+        code = random.randint(1000, 9999)
+        print(f"An sms verification code has been sent to (xxx)-xxx-{self.display_num[9:]}: \n\n")
+        print('sms verification code: ' + str(code) + '\n\n')
+        print("Code recieved?: (Y / N)")
+        got_code = input('').lower()
+        if got_code == 'y':
+            sms = int(input('Enter sms code here: '))
+            if sms == code:
+                print('\nExcellent, your user account has been verified!')
+            else:
+                User.sms_sim()
+        else:
+            print('Would you like to resend the sms code? Please indicate with "Y / N.":')
+            resend = input('').lower()
+            if resend == 'y':
+                print(f'Ok, a new sms code has been sent to (xxx)-xxx-{self.display_num[9:]}.\n')
+                User.sms_sim(self)
+            else:
+                print('Thank you, come again!')
+            
+            
+    def confirm_info(self): #class method that asks the user to confirm all input up until this point in the program
         self.info = input("Y / N ? ").lower()
         if self.info == 'y':
-            print("\nThank You!")
+            print("\nThank You, your new user account has been created!\n\n")
+            User.sms_sim(self)
         else:
-            first = input('Enter your first name: ')
-            last = input('Enter your last name: ').capitalize()
-            self.email ="{}{}@thiswebsite.com".format(first, last).lower()
-            self.tele_num = User.get_num()
-            self.displayData()
-            self.confirm_info()
-            
-    def sms_sim():
-        code = random.randint(1000, 9999)
-        print(code)
-        sms = int(input('Enter the sms code: '))
-        if sms == code:
-            print('Your user account has been verified!')
-        else:
-            User.sms_sim() 
+            User.add_user_info(self) # I just fixed the bug in this program!!!!!!
+            User.display_info(self)
+            User.confirm_info(self)
 
-
-first = input('Enter your first name: ').capitalize()
-last = input('Enter your last name: ').capitalize()
-email ="{}{}@thiswebsite.com".format(first, last).lower()
-tele_num = User.get_num()
-
-
+#creating an object "user_1" to store in class User:
 user_1 = User()
+
+#program rules for user_1
+user_1.add_user_info()
 
 user_1.pass_word()
 
-user_1.displayData()
+user_1.display_info()
 
 user_1.confirm_info()
 
-User.sms_sim()
